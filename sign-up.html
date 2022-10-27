@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Sign Up – Swipe</title>
+	<meta name="description" content="#">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<!-- Swipe core CSS -->
+	<link href="dist/css/swipe.min.css" type="text/css" rel="stylesheet">
+	<!-- Favicon -->
+	<link href="dist/img/favicon.png" type="image/png" rel="icon">
+</head>
+
+<body class="start">
+	<main>
+		<div class="layout">
+			<!-- Start of Sign Up -->
+			<div class="main order-md-2">
+				<div class="start">
+					<div class="container">
+						<div class="col-md-12">
+							<div class="content">
+								<h1>Create Account</h1>
+								<div class="third-party">
+									<button class="btn item bg-blue">
+										<i class="material-icons">pages</i>
+									</button>
+									<button class="btn item bg-teal">
+										<i class="material-icons">party_mode</i>
+									</button>
+									<button class="btn item bg-purple">
+										<i class="material-icons">whatshot</i>
+									</button>
+								</div>
+								<p>or use your email for registration:</p>
+								<form class="signup">
+									<!-- <div class="form-parent"> -->
+									<div class="form-group">
+										<input type="text" id="inputName" class="form-control" placeholder="Username"
+											required>
+										<button class="btn icon"><i class="material-icons">person_outline</i></button>
+									</div>
+									<div class="form-group">
+										<input type="email" id="inputEmail" class="form-control"
+											placeholder="Email Address" required>
+										<button class="btn icon"><i class="material-icons">mail_outline</i></button>
+									</div>
+									<div class="form-group">
+										<input type="file" id="inputImage" class="form-control"
+											placeholder="Upload your Image" required>
+										<button class="btn icon"><i class="material-icons">account_circle</i></button>
+									</div>
+									<!-- </div> -->
+									<div class="form-group">
+										<input type="password" id="inputPassword" class="form-control"
+											placeholder="Password" required>
+										<button class="btn icon"><i class="material-icons">lock_outline</i></button>
+									</div>
+									<button type="submit" id="usersignup" class="btn button">Sign Up</button>
+									<div>
+										<p id="error-message" class="text-danger"></p>
+									</div>
+									<div class="callout">
+										<span>Already a member? <a href="./index.html">Sign In</a></span>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End of Sign Up -->
+			<!-- Start of Sidebar -->
+			<div class="aside order-md-1">
+				<div class="container">
+					<div class="col-md-12">
+						<div class="preference">
+							<h2>Welcome Back!</h2>
+							<p>To keep connected with your friends please login with your personal info.</p>
+							<a href="./index.html" class="btn button">Sign In</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End of Sidebar -->
+		</div> <!-- Layout -->
+	</main>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<script src="./dist/js/sign-up.js" type="module"></script>
+	<script src="./firebaseConfig.js" type="module"></script>
+</body>
+
+
+</html>
