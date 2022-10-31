@@ -46,9 +46,8 @@ const setProfile = async (uid) => {
   await onSnapshot(q, (querySnapshot) => {
     querySnapshot.forEach((doc) => {
       profilePic.src = `${doc.data().dpURL}`;
-      profile.innerHTML = `<img class="avatar-xl" src="${
-        doc.data().dpURL
-      }" alt="avatar">
+      profile.innerHTML = `<img class="avatar-xl" src="${doc.data().dpURL
+        }" alt="avatar">
       <h1><a href="#">${doc.data().username}</a></h1>
       <span>${doc.data().email}</span>`;
     });
@@ -60,7 +59,7 @@ const showUsers = async (uid) => {
   const q = query(collection(db, "users"), where("uid", "!=", uid));
   const unsubscribe = await onSnapshot(q, (querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      contacts.innerHTML += `<a href="#" class="filterMembers all online contact" data-toggle="list">
+      contacts.innerHTML += `<a href="#" class="filterMembers all online contact" onClick="chatUser('${doc.data().uid}')">
       <img class="avatar-md" src="${doc.data().dpURL}"
           data-toggle="tooltip" data-placement="top" title="Janette" alt="avatar">
       <div class="status">
@@ -117,10 +116,82 @@ const userLogOut = () => {
     .then(() => {
       window.location = "./index.html";
     })
-    .catch((error) => {});
+    .catch((error) => { });
 };
 
 logOut.addEventListener("click", userLogOut);
+let inside = document.querySelector("#uersName");
+
+async function chatUser(uid) {
+  console.log(uid);
+  const q = query(collection(db, "users"), where("uid", "==", uid));
+  await onSnapshot(q, (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+
+      inside.innerHTML = `<a href="#"><img class="avatar-md"
+      src="${doc.data().dpURL}"title="Keith" alt="avatar"></a>
+    <div class="status">
+    <i class="material-icons online">fiber_manual_record</i>
+    </div>
+    <div class="data">
+    <h5><a href="#">${doc.data().username}</a></h5>
+    <span>Active now</span>
+    </div>
+    <button class="btn connect d-md-block d-none" name="1"><i
+      class="material-icons md-30">phone_in_talk</i></button>
+    <button class="btn connect d-md-block d-none" name="1"><i
+      class="material-icons md-36">videocam</i></button>
+    <button class="btn d-md-block d-none"><i
+      class="material-icons md-30">info</i></button>
+    <div class="dropdown">
+    <button class="btn" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false"><i
+        class="material-icons md-30">more_vert</i></button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <button class="dropdown-item connect" name="1"><i
+          class="material-icons">phone_in_talk</i>Voice Call</button>
+      <button class="dropdown-item connect" name="1"><i
+          class="material-icons">videocam</i>Video Call</button>
+      <hr>
+      <button class="dropdown-item"><i
+          class="material-icons">clear</i>Clear History</button>
+      <button class="dropdown-item"><i
+          class="material-icons">block</i>Block Contact</button>
+      <button class="dropdown-item"><i
+          class="material-icons">delete</i>Delete Contact</button>
+    </div>
+    </div>
+    `;
+
+    })
+  });
+}
+
+
+
+let send = document.querySelector(".send");
+
+let msg = document.querySelector(".msg");
+const sendMessage = async () => {
+  console.log(msg.value);
+
+  try {
+    const docRef = await addDoc(collection(db, "messages"), {
+      msg: msg.value,
+      time: Timestamp.fromDate(new Date()),
+      uid:
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
+
+}
+send.addEventListener("click", sendMessage)
+
+
 
 window.verifyEmail = verifyEmail;
 window.settingProfile = settingProfile;
+window.chatUser = chatUser;
