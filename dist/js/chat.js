@@ -179,7 +179,7 @@ const sendMessage = async () => {
     const docRef = await addDoc(collection(db, "messages"), {
       msg: msg.value,
       time: Timestamp.fromDate(new Date()),
-      uid:
+      uid:"arif"
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
