@@ -10,9 +10,13 @@ import {
   query,
   where,
   onSnapshot,
+  doc,
+  setDoc,
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
 const auth = getAuth(app);
-
+let partnerUid;
+let uid;
 const verifyEmail = async () => {
   try {
     await sendEmailVerification(auth.currentUser);
@@ -24,7 +28,7 @@ let profilePic = document.querySelector("#profile-Pic");
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    let uid = user.uid;
+    uid = user.uid;
     setProfile(uid);
     showUsers(uid);
   } else {
@@ -124,6 +128,7 @@ let inside = document.querySelector("#uersName");
 
 async function chatUser(uid) {
   console.log(uid);
+  partnerUid = uid;
   const q = query(collection(db, "users"), where("uid", "==", uid));
   await onSnapshot(q, (querySnapshot) => {
     querySnapshot.forEach((doc) => {
@@ -170,18 +175,29 @@ async function chatUser(uid) {
 
 
 let send = document.querySelector(".send");
-
+let mixUid;
 let msg = document.querySelector(".msg");
 const sendMessage = async () => {
   console.log(msg.value);
 
+  if (partnerUid > uid) {
+    mixUid = partnerUid + uid;
+  } else {
+    mixUid = uid + partnerUid;
+  }
+
+
   try {
-    const docRef = await addDoc(collection(db, "messages"), {
-      msg: msg.value,
-      time: Timestamp.fromDate(new Date()),
-      uid:"arif"
-    });
-    console.log("Document written with ID: ", docRef.id);
+    let message = {
+      dateTime: Timestamp.fromDate(new Date()),
+      chat: msg.value,
+      chatUid: mixUid,
+      myUid: uid,
+      partnerUid: partnerUid
+    }
+    await setDoc(doc(db, "messages", partnerUid), message);
+
+
   } catch (e) {
     console.error("Error adding document: ", e);
   }
